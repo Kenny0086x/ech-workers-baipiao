@@ -1,22 +1,22 @@
 # ech-workers
-cloudflare workers proxy
+cloudflare workers proxy\
 
-第一步，将workrs.txt的代码完整复制粘贴到workers里面
-第二步，启动ech-workers客户端，启动参数-h看帮助文件
+第一步，将workrs.txt的代码完整复制粘贴到workers里面\
+第二步，启动ech-workers客户端，启动参数-h看帮助文件\
 
-Usage of ./ech-workers:
-  -dns string
-        ECH 查询 DNS 服务器 (default "119.29.29.29:53")
-  -ech string
-        ECH 查询域名 (default "cloudflare-ech.com")
-  -f string
-        服务端地址 (格式: x.x.workers.dev:443)
-  -ip string
-        指定服务端 IP（绕过 DNS 解析）
-  -l string
-        代理监听地址 (支持 SOCKS5 和 HTTP) (default "127.0.0.1:30000")
-  -token string
-        身份验证令牌
+Usage of ./ech-workers: \
+  -dns string\
+        ECH 查询 DNS 服务器 (default "119.29.29.29:53")\
+  -ech string\
+        ECH 查询域名 (default "cloudflare-ech.com")\
+  -f string\
+        服务端地址 (格式: x.x.workers.dev:443)\
+  -ip string\
+        指定服务端 IP（绕过 DNS 解析）\
+  -l string\
+        代理监听地址 (支持 SOCKS5 和 HTTP) (default "127.0.0.1:30000")\
+  -token string\
+        身份验证令牌\
 
 # ECH-Tunnel-Go 
 单二进制、全平台、纯 Go 实现的多协议加密正向代理

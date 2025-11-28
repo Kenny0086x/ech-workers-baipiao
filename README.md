@@ -82,17 +82,18 @@ Usage:\
 
 ### 三、参数说明
 
-| 参数         | 必填 | 说明                                                                 |
-|--------------|------|----------------------------------------------------------------------|
-| -l         | Yes  | 监听地址（服务端 ws/wss，客户端 tcp/proxy）                           |
-| -f         | Yes  | 服务端 wss 地址（客户端必填）                                        |
-| -token     | Yes  | WebSocket 子协议密码（建议 6+ 位）                                  |
-| -n         | No   | 并发 WebSocket 通道数（推荐 3~8，建议默认）                         |
-| -cert/-key | No   | 自定义证书（wss 服务端）                                             |
-| -cidr      | No   | 服务端 IP 白名单，默认全部放行                                       |
-| -ip        | No   | 客户端指定出口 IP（指定 Cloudflare 优选IP）                            |
-| -dns       | No   | 查询 ECH 公钥的 DNS，默认 119.29.29.29:53（腾讯）                       |
-| -ech       | No   | ECH 公钥查询域名，默认 cloudflare-ech.com（最稳定）                  |
+ 参数 | 说明 | 默认值 |
+|------|------|--------|
+| -l | 监听地址（必填） | - |
+| -f | 服务端地址（客户端必填） | - |
+| -ip | 指定连接 IP | - |
+| -cert / -key | TLS 证书/密钥 | 自动生成 |
+| -token | 认证令牌 | - |
+| -cidr | IP 白名单 | 0.0.0.0/0,::/0 |
+| -dns | DoH 服务器 | dns.alidns.com/dns-query |
+| -ech | ECH 查询域名 | cloudflare-ech.com |
+| -n | 预连接通道数 | 3 |
+
 
 ###四、为什么它能 100% 过检测？
 
@@ -101,6 +102,22 @@ Usage:\
 3. **10秒心跳 + 2秒自动重连**：网络闪断立即恢复，用户无感知  
 4. **纯 TLS 1.3 + 随机化 Padding**：特征与 Chrome 访问 Cloudflare 一模一样  
 5. **无回退机制**：一旦 ECH 被拒直接退出，绝不暴露真实 SNI
+
+## 国内 DoH 服务器
+
+| 提供商 | 地址 |
+|--------|------|
+| 阿里云（默认） | dns.alidns.com/dns-query |
+| 腾讯 DNSPod | doh.pub/dns-query |
+| 360 安全 DNS | doh.360.cn/dns-query |
+
+## 故障排查
+
+**ECH 查询失败**：更换 DoH -dns doh.pub/dns-query
+
+**连接超时**：增加通道数 -n 5 或检查网络
+
+**认证失败**：确认 -token 两端一致
 
 一个基于 WebSocket 的安全隧道代理工具，支持 TCP 端口转发、SOCKS5 代理和 HTTP 代理，采用 ECH (Encrypted Client Hello) 技术增强隐私保护。
 
@@ -237,7 +254,7 @@ ECH 是 TLS 1.3 的扩展协议，用于加密 ClientHello 消息中的敏感字
 | `-key` | TLS 密钥文件路径 | 自动生成 |
 | `-token` | 身份验证令牌 | - |
 | `-cidr` | 允许的来源 IP 范围 | `0.0.0.0/0,::/0` |
-| `-dns` | ECH 公钥查询 DNS 服务器 | `119.29.29.29:53` |
+| `-dns` | ECH 公钥查询 DoH 服务器 | `dns.alidns.com/dns-query` |
 | `-ech` | ECH 公钥查询域名 | `cloudflare-ech.com` |
 | `-n` | WebSocket 连接池大小 | `3` |
 
@@ -320,7 +337,7 @@ ech-tunnel -l proxy://127.0.0.1:1080 -f wss://server.example.com:8443/tunnel -ip
 
 ```bash
 # 使用其他 DNS 服务器
-ech-tunnel -l proxy://127.0.0.1:1080 -f wss://server.example.com:8443/tunnel -dns 8.8.8.8:53
+ech-tunnel -l proxy://127.0.0.1:1080 -f wss://server.example.com:8443/tunnel -dns dns.alidns.com/dns-query
 
 # 使用其他 ECH 域名
 ech-tunnel -l proxy://127.0.0.1:1080 -f wss://server.example.com:8443/tunnel -ech cloudflare.com
@@ -408,21 +425,7 @@ ech-tunnel -l tcp://127.0.0.1:8080/web.internal:80,127.0.0.1:8443/web.internal:4
 4. **使用有效证书** - 生产环境使用 Let's Encrypt 等 CA 签发的证书
 5. **定期更换凭据** - 定期更换 token 和代理密码
 
-## 故障排查
 
-### ECH 相关
-
-**问题**：`DNS 查询超时`
-```
-[客户端] DNS 查询失败: DNS 查询超时，2秒后重试...
-```
-**解决**：更换 DNS 服务器 `-dns 8.8.8.8:53` 或 `-dns 1.1.1.1:53`
-
-**问题**：`未找到 ECH 参数`
-```
-[客户端] 未找到 ECH 参数（HTTPS RR key=echconfig/5），2秒后重试...
-```
-**解决**：更换支持 ECH 的域名 `-ech cloudflare.com`
 
 ### 连接相关
 

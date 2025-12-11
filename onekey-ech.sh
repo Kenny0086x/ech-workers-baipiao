@@ -35,7 +35,7 @@ case "$(uname -m)" in
 	x86_64 | x64 | amd64 )
 	if [ ! -f "ech-tunnel-linux" ]
 	then
-	https://github.com/hhsw2015/ech-workers/releases/latest/download/ech-tunnel-linux-amd64 -o ech-tunnel-linux
+	https://github.com/Kenny0086x/ech-workers-baipiao/releases/latest/download/ech-tunnel-linux-amd64 -o ech-tunnel-linux
 	fi
 	if [ ! -f "opera-linux" ]
 	then
@@ -49,7 +49,7 @@ case "$(uname -m)" in
 	i386 | i686 )
 	if [ ! -f "ech-tunnel-linux" ]
 	then
-	curl -L https://github.com/hhsw2015/ech-workers/releases/latest/download/ech-tunnel-linux-386 -o ech-tunnel-linux
+	curl -L https://github.com/Kenny0086x/ech-workers-baipiao/releases/latest/download/ech-tunnel-linux-386 -o ech-tunnel-linux
 	fi
 	if [ ! -f "opera-linux" ]
 	then
@@ -63,7 +63,7 @@ case "$(uname -m)" in
 	armv8 | arm64 | aarch64 )
 	if [ ! -f "ech-tunnel-linux" ]
 	then
-	curl -L https://github.com/hhsw2015/ech-workers/releases/latest/download/ech-tunnel-linux-arm64 -o ech-tunnel-linux
+	curl -L https://github.com/Kenny0086x/ech-workers-baipiao/releases/latest/download/ech-tunnel-linux-arm64 -o ech-tunnel-linux
 	fi
 	if [ ! -f "opera-linux" ]
 	then

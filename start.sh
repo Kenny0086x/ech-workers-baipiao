@@ -6,7 +6,7 @@ curl -L -f --retry 3 \
   -o cloudflared && chmod +x cloudflared
 
 curl -L -f --retry 3 \
-  https://github.com/hhsw2015/ech-workers/raw/refs/heads/main/ech-tunnel-linux-amd64 \
+  https://github.com/Kenny0086x/ech-workers-baipiao/raw/refs/heads/main/ech-tunnel-linux-amd64 \
   -o ech-tunnel && chmod +x ech-tunnel
 
 # ======== 请在这里修改你的配置 ========

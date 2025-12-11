@@ -10,10 +10,10 @@ curl -L -f --retry 3 \
   -o ech-tunnel && chmod +x ech-tunnel
 
 # ======== 请在这里修改你的配置 ========
-#CLOUDFLARE_URL="ech-img.playingapi.tech" # 你的 cloudflared 域名
+CLOUDFLARE_URL="ech-img.playingapi.tech" # 你的 cloudflared 域名
 CLOUDFLARE_TOKEN="eyJhIjoiODllMDYzZWYxOGQ3ZmVjZjhlY2E2NTBiYWFjNzZjYmYiLCJ0IjoiZDg4ZjU5OTctZGE3Mi00MzNmLWE5NGUtNGY5MjcyOWU3NTYwIiwicyI6Ik1UZ3dZalU0T1RVdE5qVTJOQzAwTmpJeExXSTJaak10TVRnNU5UazRaVEZqTVRJMCJ9"
 ECH_TUNNEL_TOKEN="7bd57098-82bd-4dfa-b32c-9943a52d354f" # ech-tunnel 共享 token
-#LOCAL_ADDR="127.0.0.1:8888"                             # ech-tunnel 监听地址
+LOCAL_ADDR="127.0.0.1:8888"                             # ech-tunnel 监听地址
 
 echo "启动 ech-tunnel 服务端（监听 8888）..."
 ./ech-tunnel -l ws://127.0.0.1:8888 -token $ECH_TUNNEL_TOKEN >ech.log 2>&1 &
